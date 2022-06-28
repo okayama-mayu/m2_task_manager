@@ -1,0 +1,16 @@
+<! the tag used in line 2 is called an erb tag or embedded ruby. used with the file format .html.erb, the erb tags allow us to execute ruby code directly in our html files. erb tags have access to any instance variables created in our controller action. >
+
+<h1>All Tasks</h1>
+
+<% @tasks.each do |task| %>
+    <h3><a href="/tasks/<%= task.id %>"><%= task.title %></a></h3>
+    <p><%= task.description %></p>
+    <a href="/tasks/<%=task.id %>/edit">Edit</a>
+    <form action="/tasks/<%= task.id %>" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="delete" />
+    </form>
+<% end %>
+
+<! the erb tag with = sign will echo or display the return value of the ruby commands in your view, and the erb tags without the = will not echo or diplay the return value of the ruby commands. In this case, we don't want the user to see the return value of the each method, just want them to see the return value of each task in an h3 tag.>
